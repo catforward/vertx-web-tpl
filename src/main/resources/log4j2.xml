@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF" name="Rest-Server" packages="pers.web.rest">
+    <Properties>
+        <!-- 配置日志文件输出目录，此配置将日志输出到tomcat根目录下的指定文件夹 -->
+        <!-- 环境变量中应定义CK_HOME-->
+        <Property name="logPath">${env:LOG_HOME}</Property>
+    </Properties>
+    <!-- All < Trace < Debug < Info < Warn < Error < Fatal < OFF -->
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <ThresholdFilter level="ALL"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} - %msg%n"/>
+        </Console>
+        <RollingFile name="RollingFileTrace" fileName="${logPath}/trace.log"
+                     filePattern="${logPath}/%d{yyyy-MM-dd}/trace_%d{yyyy-MM-dd}_%i.log">
+            <Filters>
+                <!--只接受TRACE级别的日志，其余的全部拒绝处理-->
+                <ThresholdFilter level="TRACE"/>
+                <ThresholdFilter level="DEBUG" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="32"/>
+        </RollingFile>
+        <RollingFile name="RollingFileDebug" fileName="${logPath}/debug.log"
+                     filePattern="${logPath}/%d{yyyy-MM-dd}/debug_%d{yyyy-MM-dd}_%i.log">
+            <Filters>
+                <!--只接受TRACE, DEBUG, INFO级别的日志，其余的全部拒绝处理-->
+                <ThresholdFilter level="DEBUG"/>
+                <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="32"/>
+        </RollingFile>
+        <RollingFile name="RollingFileInfo" fileName="${logPath}/info.log"
+                     filePattern="${logPath}/%d{yyyy-MM-dd}/info_%d{yyyy-MM-dd}_%i.log">
+            <Filters>
+                <!--只接受INFO级别的日志，其余的全部拒绝处理-->
+                <ThresholdFilter level="INFO"/>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="32"/>
+        </RollingFile>
+        <RollingFile name="RollingFileWarn" fileName="${logPath}/warn.log"
+                     filePattern="${logPath}/%d{yyyy-MM-dd}/warn_%d{yyyy-MM-dd}_%i.log">
+            <Filters>
+                <!--只接受INFO级别的日志，其余的全部拒绝处理-->
+                <ThresholdFilter level="WARN"/>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="32"/>
+        </RollingFile>
+        <RollingFile name="RollingFileError" fileName="${logPath}/error.log"
+                     filePattern="${logPath}/%d{yyyy-MM-dd}/error_%d{yyyy-MM-dd}_%i.log">
+            <Filters>
+                <!--只接受INFO级别的日志，其余的全部拒绝处理-->
+                <ThresholdFilter level="ERROR"/>
+                <ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="32"/>
+        </RollingFile>
+        <RollingFile name="RollingFileFatal" fileName="${logPath}/fatal.log"
+                     filePattern="${logPath}/%d{yyyy-MM-dd}/fatal_%d{yyyy-MM-dd}_%i.log">
+            <!--WARN, ERROR, FATAL级别的日志-->
+            <ThresholdFilter level="FATAL"/>
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="32"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="all">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFileTrace"/>
+            <AppenderRef ref="RollingFileDebug"/>
+            <AppenderRef ref="RollingFileInfo"/>
+            <AppenderRef ref="RollingFileWarn"/>
+            <AppenderRef ref="RollingFileError"/>
+            <AppenderRef ref="RollingFileFatal"/>
+        </Root>
+    </Loggers>
+</Configuration>
