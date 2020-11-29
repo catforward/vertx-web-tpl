@@ -18,6 +18,10 @@ import pers.web.rest.Symbols;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * <p>请求的实际处理服务</p>
+ * @author liang gong
+ */
 public class S1Service extends AbstractVerticle {
     private static final Logger logger = LoggerFactory.getLogger(S1Service.class);
     private JDBCClient jdbcClient;
@@ -49,11 +53,9 @@ public class S1Service extends AbstractVerticle {
     }
 
     private void handleS1Service(Message<JsonObject> msg) {
-        JsonObject resultBody = new JsonObject();
-        resultBody.put("config", config());
 
         ResultMsg response = new ResultMsg(ResultEnum.SUCCESS);
-        response.setData(resultBody);
+        response.setData(config());
 
         msg.reply(response.toJsonObject());
     }

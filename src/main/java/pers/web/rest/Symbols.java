@@ -1,5 +1,9 @@
 package pers.web.rest;
 
+/**
+ * <p>常量定义</p>
+ * @author liang gong
+ */
 public class Symbols {
 
     public static class ServiceAddress {

@@ -13,6 +13,10 @@ import pers.web.rest.Symbols;
 
 import static pers.web.rest.Symbols.ServiceAddress.S1_SERVICE;
 
+/**
+ * <p>请求的实际处理服务</p>
+ * @author liang gong
+ */
 public class S2Service extends AbstractVerticle {
     private static final Logger logger = LoggerFactory.getLogger(S2Service.class);
     @Override
@@ -37,11 +41,9 @@ public class S2Service extends AbstractVerticle {
                 response.setMessage(res.cause().getMessage());
                 msg.reply(response.toJsonObject());
             } else {
-                ResultMsg response = new ResultMsg(ResultEnum.SUCCESS);
                 JsonObject ret = new JsonObject().mergeIn(res.result().body());
                 ret.put("from", "request from S1");
-                response.setData(ret);
-                msg.reply(response.toJsonObject());
+                msg.reply(ret);
             }
         });
     }

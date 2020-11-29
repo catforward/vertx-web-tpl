@@ -14,6 +14,10 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 import pers.web.rest.Symbols;
 
+/**
+ * <p>http请求处理</p>
+ * @author liang gong
+ */
 public class S1DbHandler implements Handler<RoutingContext> {
     private S1DbHandler() {}
 
@@ -29,7 +33,7 @@ public class S1DbHandler implements Handler<RoutingContext> {
         JsonObject data = new JsonObject();
         data.put("response from", "S1DbHandler");
         data.put("method", routingContext.request().method());
-        data.put("path:", routingContext.request().path());
+        data.put("path", routingContext.request().path());
         data.put("body", body);
 
         // write output

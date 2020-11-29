@@ -8,6 +8,10 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 import pers.web.rest.Symbols;
 
+/**
+ * <p>http请求处理</p>
+ * @author liang gong
+ */
 public class S1Handler implements Handler<RoutingContext> {
 
     private S1Handler() {}
@@ -24,7 +28,7 @@ public class S1Handler implements Handler<RoutingContext> {
         JsonObject data = new JsonObject();
         data.put("response from", "s1handler");
         data.put("method", routingContext.request().method());
-        data.put("path:", routingContext.request().path());
+        data.put("path", routingContext.request().path());
         data.put("body", body);
 
         // write output
@@ -34,7 +38,7 @@ public class S1Handler implements Handler<RoutingContext> {
             } else {
                 HttpServerResponse response = routingContext.response();
                 response.putHeader("content-type", "application/json");
-                data.put("service_result", res.result().body().encode());
+                data.put("service_result", res.result().body());
                 response.end(data.encodePrettily());
             }
         });
